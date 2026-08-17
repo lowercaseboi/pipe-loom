@@ -3,10 +3,10 @@ import { Logo } from "./Logo";
 import { ButtonLink } from "./Button";
 
 const links = [
-  { href: "#context", label: "The shift" },
-  { href: "#how-it-works", label: "How it works" },
+  { href: "#context", label: "Why this matters" },
+  { href: "#how-it-works", label: "Workflow" },
   { href: "#demo", label: "Live demo" },
-  { href: "#features", label: "Product" },
+  { href: "#features", label: "What it does" },
 ];
 
 export function Nav() {
@@ -43,7 +43,7 @@ export function Nav() {
           ))}
         </ul>
         <ButtonLink href="#demo" size="sm">
-          Try it live
+          Run a project
         </ButtonLink>
       </nav>
     </header>

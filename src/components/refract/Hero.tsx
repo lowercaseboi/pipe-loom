@@ -3,9 +3,9 @@ import { AnswerCard } from "./AnswerCard";
 import { Reveal } from "./Reveal";
 
 const mentions = [
-  { hit: true, text: "Kettle & Co. — mentioned" },
-  { hit: true, text: "Roast Theory — mentioned" },
-  { hit: false, text: "Your brand — not mentioned" },
+  { hit: true, text: "Route and fare details — described" },
+  { hit: true, text: "Ticketing app — described" },
+  { hit: false, text: "Accessibility and last-mile info — missing" },
 ];
 
 export function Hero() {
@@ -25,30 +25,34 @@ export function Hero() {
         <Reveal>
           <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-ink-line bg-ink-raised/70 px-3 py-1.5 font-mono text-[0.72rem] uppercase tracking-[0.12em] text-ink-dim">
             <i className="size-1.5 rounded-full bg-detected" />
-            Generative engine optimization
+            Project intelligence
           </span>
           <h1 className="mb-5 text-[clamp(2.3rem,4.4vw,3.9rem)] leading-[1.06]">
-            Your customers already asked the AI.{" "}
-            <span className="text-signal">Here's what it told them.</span>
+            AI systems already describe your project.{" "}
+            <span className="text-signal">Refract shows you how.</span>
           </h1>
           <p className="mb-8 max-w-[46ch] text-[1.08rem] text-ink-dim">
-            People ask ChatGPT, Gemini, and Perplexity what to buy and who to hire before they ever
-            open a search bar. Refract shows you exactly what those answers say about your brand — and
-            fixes it when they're wrong, thin, or missing you completely.
+            When someone asks an AI assistant about a transit system, a research group, an open-source
+            tool, or a student project, it answers from whatever public record it has. Refract runs
+            those questions for you, shows what the answers get right, what they miss, and what to
+            document so the record improves.
           </p>
           <div className="flex flex-wrap gap-4">
-            <ButtonLink href="#demo">Try it on a real brand ↓</ButtonLink>
+            <ButtonLink href="#demo">Run it on a project ↓</ButtonLink>
             <ButtonLink href="#how-it-works" variant="ghostInk">
-              See how it works
+              See the workflow
             </ButtonLink>
           </div>
         </Reveal>
 
         <Reveal delay={120}>
-          <AnswerCard label="An AI assistant · illustrative example" query="best pour-over coffee in Mumbai?">
+          <AnswerCard
+            label="An AI assistant · illustrative example"
+            query="what is the Kochi Water Metro and how does it work?"
+          >
             <p className="text-[1rem]">
-              "For pour-over in Mumbai, Kettle &amp; Co. and Roast Theory are often recommended for
-              their single-origin beans and precise brew methods."
+              "It's a ferry network in Kochi using electric boats across island terminals, with a
+              common ticketing app shared with other city transport."
             </p>
             <ul className="mt-5 flex flex-col gap-2.5">
               {mentions.map((m) => (
@@ -70,4 +74,3 @@ export function Hero() {
     </section>
   );
 }
-

@@ -3,24 +3,28 @@ import { Reveal } from "./Reveal";
 
 const steps = [
   {
-    title: "Connect your brand",
-    text: "Tell Refract who you are, what you offer, and who else is in the running.",
+    title: "Start a project",
+    text: "A municipal service, a lab's research programme, an open-source library, a college project — anything with a public record.",
   },
   {
-    title: "We ask the same questions your customers do",
-    text: "Across multiple AI systems, not just one.",
+    title: "Define what you're investigating",
+    text: "The questions that matter: what it does, who it serves, how it works, what state it's in.",
   },
   {
-    title: "See exactly where you stand",
-    text: "Every mention, every omission, compared side-by-side with competitors.",
+    title: "Ask across AI systems",
+    text: "The same realistic questions are put to multiple models, so you see agreement and disagreement.",
   },
   {
-    title: "Get a fix for every gap",
-    text: "Prioritized, specific actions — not a generic checklist.",
+    title: "Inspect the answers",
+    text: "Read what came back line by line, and mark what is accurate, outdated, vague, or absent.",
   },
   {
-    title: "Watch it move",
-    text: "Rerun automatically and track whether visibility is actually improving.",
+    title: "Document the fixes",
+    text: "Each gap maps to something concrete to publish or correct — a README section, a docs page, a public FAQ.",
+  },
+  {
+    title: "Rerun and compare",
+    text: "Run the same questions later and see whether the answers actually changed.",
   },
 ];
 
@@ -30,9 +34,9 @@ export function HowItWorks() {
       <div className="container-page">
         <Reveal>
           <div className="mb-14 max-w-[640px]">
-            <Eyebrow>How Refract works</Eyebrow>
+            <Eyebrow>The workflow</Eyebrow>
             <h2 className="text-[clamp(1.7rem,3vw,2.5rem)] leading-[1.15]">
-              From blind spot to evidence, in five steps.
+              From an open question to a documented change.
             </h2>
           </div>
         </Reveal>

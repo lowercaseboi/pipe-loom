@@ -77,12 +77,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Refract — See what AI says about your brand" },
+      { title: "Refract — See how AI systems describe your project" },
       {
         name: "description",
         content:
-          "See what AI assistants tell customers about your brand, and fix the gaps.",
+          "Examine how AI systems describe a project, find missing context, and improve its public record.",
       },
+
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

@@ -10,12 +10,13 @@ export function Footer() {
             Refract
           </div>
           <p className="text-[0.88rem] text-ink-dim">
-            A prototype for generative engine optimization — built as a final-year engineering project
-            for small businesses, freelancers, and independent professionals.
+            A final-year engineering project: a research tool for examining how AI systems describe
+            public projects — civic services, research groups, open-source work, and student and
+            community projects.
           </p>
         </div>
         <p className="font-mono text-[0.76rem] text-ink-dim opacity-80">
-          The live demo above calls a real AI model. Nothing you type is stored.
+          The demo above calls a real AI model. Nothing you type is stored.
         </p>
       </div>
     </footer>

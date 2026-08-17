@@ -1,37 +1,37 @@
-import { Eye, BarChart3, Target, Lightbulb, Send, TrendingUp } from "lucide-react";
+import { Eye, BarChart3, Target, Lightbulb, FileText, TrendingUp } from "lucide-react";
 import { Eyebrow } from "./Eyebrow";
 import { Reveal } from "./Reveal";
 
 const features = [
   {
     icon: Eye,
-    title: "See every mention",
-    text: "What AI assistants actually say about you, pulled from the same questions your customers are asking.",
+    title: "Read the answers in full",
+    text: "Every response an AI system gives about the project, kept as-is so it can be reviewed rather than summarised away.",
   },
   {
     icon: BarChart3,
-    title: "Know where you rank",
-    text: "Compared against the competitors you name — not a generic market list.",
+    title: "Compare across systems",
+    text: "Where models agree, where they contradict each other, and where only one of them knows something.",
   },
   {
     icon: Target,
-    title: "Find the gap before customers do",
-    text: "Where your offering, message, or content doesn't match what people are asking for.",
+    title: "Locate missing context",
+    text: "The parts of the project no answer covers — scope, current status, who it's for, how to take part.",
   },
   {
     icon: Lightbulb,
-    title: "Get told what to fix, and why",
-    text: "Every recommendation comes with the evidence it's based on.",
+    title: "See what each gap rests on",
+    text: "Every finding points back to the exact wording in the answer that produced it.",
   },
   {
-    icon: Send,
-    title: "Push it out",
-    text: "Turn a fix into content, ready for the channels you already use.",
+    icon: FileText,
+    title: "Turn findings into documentation",
+    text: "Each gap becomes a concrete edit to a README, project page, or public description.",
   },
   {
     icon: TrendingUp,
-    title: "Watch the trend",
-    text: "Rerun automatically and see whether visibility is actually moving.",
+    title: "Track change over reruns",
+    text: "Run the same question set again and see what shifted after the record was updated.",
   },
 ];
 
@@ -41,9 +41,9 @@ export function Features() {
       <div className="container-page">
         <Reveal>
           <div className="mb-14 max-w-[640px]">
-            <Eyebrow>What you get</Eyebrow>
+            <Eyebrow>What Refract does</Eyebrow>
             <h2 className="text-[clamp(1.7rem,3vw,2.5rem)] leading-[1.15]">
-              Everything you need to see, and fix, your AI visibility.
+              Enough detail to act on, not a score out of ten.
             </h2>
           </div>
         </Reveal>
