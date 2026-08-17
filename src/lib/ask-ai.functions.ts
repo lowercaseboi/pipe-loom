@@ -1,11 +1,11 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-const schema = z.object({ brand: z.string().trim().min(1).max(60) });
+const schema = z.object({ project: z.string().trim().min(1).max(80) });
 
 export type AskAiResult = {
   answer: string;
-  lowVisibility: boolean;
+  thinContext: boolean;
 };
 
 const LOW_SIGNALS = [
@@ -31,13 +31,13 @@ export const askAi = createServerFn({ method: "POST" })
     const apiKey = process.env["LOVABLE_API_KEY"];
     if (!apiKey) throw new Error("AI is not configured right now.");
 
-    const prompt = `Someone just asked an AI assistant: "What is ${data.brand} and what do they offer?"
+    const prompt = `Someone just asked an AI assistant: "What is the ${data.project} project, what does it do, and who is it for?"
 
 Respond exactly as a helpful AI assistant would answer that question — in 2 to 4 natural sentences, conversational, with no markdown formatting and no headers or bullet points.
 
-If you have reliable knowledge of this specific brand or company, describe what they do accurately and neutrally.
+If you have reliable knowledge of this specific project, initiative, service, or piece of work, describe its purpose, scope, and who it serves accurately and neutrally.
 
-If you do NOT have specific, reliable information about this exact brand, start by honestly saying you don't have specific information about it, then add one brief, clearly-speculative sentence about what the name might suggest. Do not invent specific facts, founders, locations, or claims as if they were true.`;
+If you do NOT have specific, reliable information about this exact project, start by honestly saying you don't have specific information about it, then add one brief, clearly-speculative sentence about what the name might suggest. Do not invent specific facts, people, dates, locations, funding, or outcomes as if they were true.`;
 
     const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -62,5 +62,5 @@ If you do NOT have specific, reliable information about this exact brand, start 
     if (!answer) throw new Error("The model didn't return a response. Try again.");
 
     const lower = answer.toLowerCase();
-    return { answer, lowVisibility: LOW_SIGNALS.some((s) => lower.includes(s)) };
+    return { answer, thinContext: LOW_SIGNALS.some((s) => lower.includes(s)) };
   });

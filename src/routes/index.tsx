@@ -7,9 +7,10 @@ import { LiveDemo } from "@/components/refract/LiveDemo";
 import { Features } from "@/components/refract/Features";
 import { Footer } from "@/components/refract/Footer";
 
-const title = "Refract — See what AI says about your brand";
+const title = "Refract — See how AI systems describe your project";
 const description =
-  "Refract shows you what ChatGPT, Gemini, and Perplexity tell customers about your brand — and how to fix the gaps. Try the live AI demo.";
+  "Refract asks AI systems realistic questions about a project, shows what the answers get right or miss, and turns the gaps into documentation you can publish.";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
