@@ -1,4 +1,3 @@
-import { Eyebrow } from "./Eyebrow";
 import { ButtonLink } from "./Button";
 import { AnswerCard } from "./AnswerCard";
 import { Reveal } from "./Reveal";
