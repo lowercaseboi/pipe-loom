@@ -6,14 +6,23 @@ import { AnswerCard } from "./AnswerCard";
 import { Button } from "./Button";
 import { askAi } from "@/lib/ask-ai.functions";
 
-const EXAMPLES = ["Duolingo", "Notion", "Blue Bottle Coffee"];
-const STATUSES = ["Connecting to the model…", "Asking the question…", "Reading the response…"];
+const EXAMPLES = ["Forest Essentials", "boAt", "Nykaa"];
+const STATUSES = [
+  "Connecting to the model…",
+  "Asking the question…",
+  "Reading the response…",
+];
 
 type State =
   | { kind: "idle" }
-  | { kind: "loading"; brand: string }
-  | { kind: "result"; brand: string; answer: string; lowVisibility: boolean }
-  | { kind: "error"; brand: string; message: string };
+  | { kind: "loading"; project: string }
+  | {
+      kind: "result";
+      project: string;
+      answer: string;
+      thinContext: boolean;
+    }
+  | { kind: "error"; project: string; message: string };
 
 export function LiveDemo() {
   const ask = useServerFn(askAi);
@@ -24,31 +33,48 @@ export function LiveDemo() {
 
   useEffect(() => {
     if (state.kind !== "loading") return;
-    const id = setInterval(() => setStatusIdx((i) => (i + 1) % STATUSES.length), 900);
+
+    const id = setInterval(
+      () => setStatusIdx((i) => (i + 1) % STATUSES.length),
+      900,
+    );
+
     return () => clearInterval(id);
   }, [state.kind]);
 
   const busy = state.kind === "loading";
 
   async function handleAsk(raw: string) {
-    const brand = raw.trim();
-    if (!brand || busy) return;
+    const project = raw.trim();
+
+    if (!project || busy) return;
+
     const id = ++requestId.current;
+
     setStatusIdx(0);
-    setState({ kind: "loading", brand });
+    setState({ kind: "loading", project });
+
     try {
-      const res = await ask({ data: { brand } });
+      const res = await ask({ data: { project } });
+
       if (id !== requestId.current) return;
-      setState({ kind: "result", brand, answer: res.answer, lowVisibility: res.lowVisibility });
+
+      setState({
+        kind: "result",
+        project,
+        answer: res.answer,
+        thinContext: res.thinContext,
+      });
     } catch (err) {
       if (id !== requestId.current) return;
+
       setState({
         kind: "error",
-        brand,
+        project,
         message:
           err instanceof Error && err.message
             ? err.message
-            : "Couldn't reach the model just now. Try again.",
+            : "Couldn't reach the AI right now. Try again.",
       });
     }
   }
@@ -58,13 +84,16 @@ export function LiveDemo() {
       <div className="container-page">
         <Reveal>
           <div className="mb-14 max-w-[680px]">
-            <Eyebrow tone="paper">Live demo — real AI, right now</Eyebrow>
+            <Eyebrow tone="paper">LIVE AI VISIBILITY CHECK</Eyebrow>
+
             <h2 className="text-[clamp(1.7rem,3vw,2.5rem)] leading-[1.15]">
-              Ask the AI about a brand. Any brand.
+              See whether AI recognizes your brand.
             </h2>
+
             <p className="mt-3.5 text-[1.02rem] text-paper-dim">
-              Type a business, product, or your own brand name. Refract asks an AI assistant the way a
-              customer actually would, live, and shows you exactly what comes back.
+              Enter a brand or business. Refract asks an AI the kinds of
+              questions people might ask when discovering what to buy, then
+              checks what comes back.
             </p>
           </div>
         </Reveal>
@@ -82,22 +111,27 @@ export function LiveDemo() {
               <label htmlFor="brandInput" className="sr-only">
                 Brand or business name
               </label>
+
               <input
                 id="brandInput"
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
-                maxLength={60}
+                maxLength={80}
                 autoComplete="off"
-                placeholder="Type a brand or business name…"
+                placeholder="Enter a brand or business…"
                 className="min-w-0 flex-1 basis-[220px] rounded-xl border border-paper-line bg-paper-raised/50 px-4 py-3.5 text-[1rem] text-paper-foreground placeholder:text-paper-dim"
               />
+
               <Button type="submit" disabled={busy}>
-                {busy ? "Asking…" : "Ask the AI"}
+                {busy ? "Checking…" : "Check visibility"}
               </Button>
             </form>
 
             <div className="flex flex-wrap items-center gap-2.5">
-              <span className="font-mono text-[0.75rem] text-paper-dim">or try:</span>
+              <span className="font-mono text-[0.75rem] text-paper-dim">
+                or try:
+              </span>
+
               {EXAMPLES.map((brand) => (
                 <button
                   key={brand}
@@ -115,18 +149,19 @@ export function LiveDemo() {
             </div>
 
             <p className="mt-5 max-w-[52ch] text-[0.86rem] text-paper-dim">
-              This demo asks one AI model directly, live. The full Refract platform checks multiple
-              providers side by side, tracks changes weekly, and benchmarks you against the
-              competitors you name.
+              This demo checks one AI response live. The full Refract
+              experience looks across the questions people ask in your
+              category, compares your visibility with competitors, and turns
+              the gaps into practical SEO, content, and reputation actions.
             </p>
           </Reveal>
 
           <Reveal delay={100}>
             <div aria-live="polite">
               {state.kind === "idle" ? (
-                <AnswerCard tone="paper" label="An AI assistant · waiting">
+                <AnswerCard tone="paper" label="AI visibility · waiting">
                   <p className="text-paper-dim">
-                    Type a brand above and press "Ask the AI" — the real response will appear here.
+                    Enter a brand above and check how the AI responds.
                   </p>
                 </AnswerCard>
               ) : null}
@@ -134,41 +169,45 @@ export function LiveDemo() {
               {state.kind === "loading" ? (
                 <AnswerCard
                   tone="paper"
-                  label="An AI assistant · asking now"
-                  query={`what is ${state.brand} and what do they offer?`}
+                  label="AI visibility · checking now"
+                  query={`what are the leading brands in ${state.project}'s category?`}
                 >
-                  <p className="text-paper-dim">{STATUSES[statusIdx]}</p>
+                  <p className="text-paper-dim">
+                    {STATUSES[statusIdx]}
+                  </p>
                 </AnswerCard>
               ) : null}
 
               {state.kind === "result" ? (
                 <AnswerCard
                   tone="paper"
-                  label="An AI assistant · live response"
-                  query={`what is ${state.brand} and what do they offer?`}
+                  label="AI visibility · live response"
+                  query={`what are the leading brands in ${state.project}'s category?`}
                   footer={
                     <span
                       className={`inline-block rounded-full px-3.5 py-1.5 font-mono text-[0.8rem] ${
-                        state.lowVisibility
+                        state.thinContext
                           ? "bg-miss/15 text-miss-deep"
                           : "bg-detected/15 text-detected-deep"
                       }`}
                     >
-                      {state.lowVisibility
+                      {state.thinContext
                         ? "⚠ Low AI visibility — little specific information found"
-                        : "✓ AI recognizes this brand"}
+                        : "✓ AI has specific information about this brand"}
                     </span>
                   }
                 >
-                  <p className="whitespace-pre-wrap text-[1rem]">{state.answer}</p>
+                  <p className="whitespace-pre-wrap text-[1rem]">
+                    {state.answer}
+                  </p>
                 </AnswerCard>
               ) : null}
 
               {state.kind === "error" ? (
                 <AnswerCard
                   tone="paper"
-                  label="An AI assistant · something went wrong"
-                  query={`what is ${state.brand} and what do they offer?`}
+                  label="AI visibility · something went wrong"
+                  query={`what are the leading brands in ${state.project}'s category?`}
                 >
                   <p className="text-miss-deep">{state.message}</p>
                 </AnswerCard>
