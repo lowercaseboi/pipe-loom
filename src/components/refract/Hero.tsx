@@ -68,7 +68,7 @@ export function Hero() {
           </AnswerCard>
         </Reveal>
       </div>
-      <Eyebrow>{""}</Eyebrow>
     </section>
   );
 }
+
