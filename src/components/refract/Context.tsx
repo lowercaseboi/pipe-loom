@@ -4,15 +4,15 @@ import { Reveal } from "./Reveal";
 const items = [
   {
     tag: "[ before ]",
-    text: "Search engines handed people a list of links. You made your own case.",
+    text: "Someone researching a project read the docs, the site, the repo, and made up their own mind.",
   },
   {
     tag: "[ now ]",
-    text: "AI assistants hand people an answer. You're either part of it, or you're invisible.",
+    text: "They ask an AI system and get one summary, assembled from whatever it happens to know.",
   },
   {
     tag: "[ the gap ]",
-    text: "Almost nobody is watching what these answers actually say. That's what Refract is for.",
+    text: "Nobody checks whether that summary is accurate, current, or complete. Refract makes it checkable.",
   },
 ];
 
@@ -22,9 +22,9 @@ export function Context() {
       <div className="container-page">
         <Reveal>
           <div className="mb-14 max-w-[640px]">
-            <Eyebrow tone="paper">The shift</Eyebrow>
+            <Eyebrow tone="paper">Why this matters</Eyebrow>
             <h2 className="text-[clamp(1.7rem,3vw,2.5rem)] leading-[1.15]">
-              Search didn't disappear. It got an opinion.
+              A project's public record is now read by machines first.
             </h2>
           </div>
         </Reveal>
